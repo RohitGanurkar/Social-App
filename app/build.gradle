@@ -42,4 +42,13 @@ dependencies {
 
     // Readable Bottom  Navigation View
     implementation 'com.github.iammert:ReadableBottomBar:0.2'
+
+    // circular imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // responsive mdp
+    implementation 'com.github.MrNouri:DynamicSizes:1.0'
+
+    // Rounded imageview
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
