@@ -51,4 +51,7 @@ dependencies {
 
     // Rounded imageview
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    // DiagonalLayout
+    implementation 'com.github.florent37:diagonallayout:1.0.9'
 }
