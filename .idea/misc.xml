@@ -13,11 +13,14 @@
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_post.xml" value="0.13177083333333334" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_profile.xml" value="0.13177083333333334" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_search.xml" value="0.13177083333333334" />
+        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/login_text_bg.xml" value="0.2175" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/squar.xml" value="0.2526041666666667" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/three_dots.xml" value="0.2526041666666667" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/toolbar_bg.xml" value="0.2526041666666667" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/font/.xml" value="0.26666666666666666" />
+        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/activity_main.xml" value="0.18333333333333332" />
+        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/activity_signup.xml" value="0.23645833333333333" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/dashboard_rv_sample.xml" value="0.264" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/fragment_home.xml" value="0.152" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/fragment_notification.xml" value="0.18333333333333332" />
