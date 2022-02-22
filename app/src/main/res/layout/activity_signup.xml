@@ -95,7 +95,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/login_text_bg"
             android:hint="Profession"
-            android:inputType="textPassword" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -121,8 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/login_text_bg"
-            android:hint="Email"
-            android:inputType="textPassword" />
+            android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -158,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="15dp"
-        android:text="Login"
+        android:text="Signup"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/goto_login"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
