@@ -18,23 +18,27 @@ import android.widget.Toast;
 import com.example.socialapp.Adapter.FriendAdapter;
 import com.example.socialapp.Model.FriendModel;
 import com.example.socialapp.R;
-import com.example.socialapp.databinding.FragmentPostBinding;
+import com.example.socialapp.User;
 import com.example.socialapp.databinding.FragmentProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
     FragmentProfileBinding binding;
     ArrayList<FriendModel> friendList;
-    ActivityResultLauncher<String> mGetContent;
+    ActivityResultLauncher<String> changeCover, changeProfile;
     FirebaseAuth auth;
     FirebaseStorage storage;
     FirebaseDatabase database;
@@ -55,6 +59,31 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
+        // getting UserInfo for setup User Profile
+        database.getReference().child("User").child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    User user = snapshot.getValue(User.class);
+                    Picasso.get()
+                            .load(user.getCoverPhoto())
+                            .placeholder(R.drawable.back_ground)
+                            .into(binding.coverPhoto);
+                    Picasso.get()
+                            .load(user.getProfilePhoto())
+                            .placeholder(R.drawable.back_ground)
+                            .into(binding.profileImage);
+                    binding.name.setText(user.getName());
+                    binding.profession.setText(user.getProfession());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         // Arraylist for RecyclerView
         friendList = new ArrayList<>();
         friendList.add(new FriendModel(R.drawable.image_face));
@@ -71,16 +100,24 @@ public class ProfileFragment extends Fragment {
         binding.addCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetContent.launch("image/*");
+                changeCover.launch("image/*");
+            }
+        });
+
+        // when we click for ChangeProfilePhoto
+        binding.checked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeProfile.launch("image/*");
             }
         });
         /* StartActivityForResult :- {{ ALTERNATIVE }}
          when user select the image by clicking */
-        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        changeCover = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
                 binding.coverPhoto.setImageURI(result);
-
+                // Store image in Firebase Storage
                 StorageReference reference = storage.getReference().child("cover_photo").child(auth.getUid());
                 reference.putFile(result).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -89,7 +126,30 @@ public class ProfileFragment extends Fragment {
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                // copy imageUrl into userDetails
                                 database.getReference().child("User").child(auth.getUid()).child("coverPhoto").setValue(uri.toString());
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        // when user select the image by clicking CheckedBtn for ChangeProfilePhoto
+        changeProfile = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                binding.profileImage.setImageURI(result);
+                // Store image in Firebase Storage
+                StorageReference reference = storage.getReference().child("profile_photo").child(auth.getUid());
+                reference.putFile(result).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        Toast.makeText(getContext(), "Successfully Change", Toast.LENGTH_SHORT).show();
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // copy imageUrl into userDetails
+                                database.getReference().child("User").child(auth.getUid()).child("profilePhoto").setValue(uri.toString());
                             }
                         });
                     }
