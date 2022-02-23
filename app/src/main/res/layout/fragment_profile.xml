@@ -27,9 +27,9 @@
 
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/coverPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/back_ground" />
 
@@ -68,6 +68,15 @@
         diagonal:layout_constraintStart_toStartOf="@+id/linearLayout"
         diagonal:layout_constraintTop_toTopOf="@id/linearLayout"
         diagonal:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/addCover"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/gallery"
+        diagonal:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        diagonal:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/checked"
