@@ -1,7 +1,7 @@
 package com.example.socialapp;
 
 public class User {
-    private String name, profession, email, password;
+    private String name, profession, email, password, userId;
     private String coverPhoto, profilePhoto;
 
     public User() {
@@ -12,6 +12,14 @@ public class User {
         this.profession = profession;
         this.email = email;
         this.password = password;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getProfilePhoto() {
