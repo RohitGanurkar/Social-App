@@ -75,6 +75,7 @@ public class ProfileFragment extends Fragment {
                             .into(binding.profileImage);
                     binding.name.setText(user.getName());
                     binding.profession.setText(user.getProfession());
+                    binding.follower.setText(user.getFollowerCount()+"");
                 }
             }
 
@@ -84,7 +85,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // Arraylist for RecyclerView
+        // Arraylist for MyFollowerRecyclerView
         followerList = new ArrayList<>();
 
         // Setting Adapter to RecyclerView
@@ -93,6 +94,7 @@ public class ProfileFragment extends Fragment {
         binding.friends.setLayoutManager(linearLayoutManager);
         binding.friends.setAdapter(followersAdapter);
 
+        // get Follower from Database for followerList
         database.getReference().child("User")
                 .child(auth.getUid())
                 .child("follower").addValueEventListener(new ValueEventListener() {

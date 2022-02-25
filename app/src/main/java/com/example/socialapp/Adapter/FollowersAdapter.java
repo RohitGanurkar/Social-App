@@ -14,8 +14,11 @@ import com.example.socialapp.Model.FollowModel;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
 import com.example.socialapp.databinding.FriendRvSampleBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,6 +44,21 @@ public class FollowersAdapter extends RecyclerView.Adapter<FollowersAdapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         FollowModel model = list.get(position);
+        // getting image from Database for who's followed current user
+        FirebaseDatabase.getInstance().getReference()
+                .child("User")
+                .child(model.getFollowedBy()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                Picasso.get().load(user.getProfilePhoto()).placeholder(R.drawable.back_ground).into(holder.binding.myFollower);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

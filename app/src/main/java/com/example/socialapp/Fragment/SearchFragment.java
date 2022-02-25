@@ -58,7 +58,10 @@ public class SearchFragment extends Fragment {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
                     user.setUserId(dataSnapshot.getKey());
-                    list.add(user);
+                    // Current user not showed in All user (SearchFragment)
+                    if(!dataSnapshot.getKey().equals(FirebaseAuth.getInstance().getUid())){
+                        list.add(user);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }

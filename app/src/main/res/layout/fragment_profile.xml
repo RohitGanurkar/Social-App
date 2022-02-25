@@ -184,7 +184,7 @@
                 diagonal:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/follower"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="21dp"
@@ -290,7 +290,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/meera_inimai"
-        android:text="My Friends"
+        android:text="My Followers"
         android:textColor="#050505"
         android:textSize="@dimen/_14mdp"
         android:textStyle="bold"
