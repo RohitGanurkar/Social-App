@@ -3,6 +3,7 @@ package com.example.socialapp;
 public class User {
     private String name, profession, email, password, userId;
     private String coverPhoto, profilePhoto;
+    private int followerCount;
 
     public User() {
     }
@@ -12,6 +13,14 @@ public class User {
         this.profession = profession;
         this.email = email;
         this.password = password;
+    }
+
+    public int getFollowerCount() {
+        return followerCount;
+    }
+
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
     }
 
     public String getUserId() {
