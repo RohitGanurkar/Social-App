@@ -10,17 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialapp.Model.DashBoardModel;
+import com.example.socialapp.Model.PostModel;
 import com.example.socialapp.R;
 
 import java.util.ArrayList;
 
 public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardAdapter.viewHolder>{
 
-    ArrayList<DashBoardModel> list;
+    ArrayList<PostModel> list;
     Context context;
 
-    public DashBoardAdapter(ArrayList<DashBoardModel> list, Context context) {
+    public DashBoardAdapter(ArrayList<PostModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,17 +35,17 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardAdapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
-        DashBoardModel model = list.get(position);
+        PostModel model = list.get(position);
 
         // Setting values in ImageBox/TextBox
-        holder.profileImg.setImageResource(model.getProfileImg());
-        holder.postImg.setImageResource(model.getPostImg());
-        holder.save.setImageResource(model.getSaveImg());
-        holder.name.setText(model.getName());
-        holder.about.setText(model.getAbout());
-        holder.like.setText(model.getLike());
-        holder.comment.setText(model.getComment());
-        holder.share.setText(model.getShare());
+//        holder.profileImg.setImageResource(model.getProfileImg());
+//        holder.postImg.setImageResource(model.getPostImg());
+//        holder.save.setImageResource(model.getSaveImg());
+//        holder.name.setText(model.getName());
+//        holder.about.setText(model.getAbout());
+//        holder.like.setText(model.getLike());
+//        holder.comment.setText(model.getComment());
+//        holder.share.setText(model.getShare());
 
     }
 

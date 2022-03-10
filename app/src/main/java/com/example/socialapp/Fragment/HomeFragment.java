@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.socialapp.Adapter.DashBoardAdapter;
 import com.example.socialapp.Adapter.StoryAdapter;
-import com.example.socialapp.Model.DashBoardModel;
+import com.example.socialapp.Model.PostModel;
 import com.example.socialapp.Model.StoryModel;
 import com.example.socialapp.R;
 import com.example.socialapp.databinding.FragmentHomeBinding;
@@ -23,7 +23,7 @@ public class HomeFragment extends Fragment {
 
     FragmentHomeBinding binding;
     ArrayList<StoryModel> list;
-    ArrayList<DashBoardModel> dashboardList;
+    ArrayList<PostModel> dashboardList;
 
     public HomeFragment() {
     }
@@ -56,10 +56,10 @@ public class HomeFragment extends Fragment {
 
         // Arraylist for DashboardAdapter
         dashboardList = new ArrayList<>();
-        dashboardList.add(new DashBoardModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"Rohit","im good", "254", "65","21"));
-        dashboardList.add(new DashBoardModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"vishal","im nice", "56", "24","25"));
-        dashboardList.add(new DashBoardModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"anup","im better", "34", "65","98"));
-        dashboardList.add(new DashBoardModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"rakesh","im no1", "254", "65","21"));
+//        dashboardList.add(new PostModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"Rohit","im good", "254", "65","21"));
+//        dashboardList.add(new PostModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"vishal","im nice", "56", "24","25"));
+//        dashboardList.add(new PostModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"anup","im better", "34", "65","98"));
+//        dashboardList.add(new PostModel(R.drawable.image_face,R.drawable.image_wall,R.drawable.save,"rakesh","im no1", "254", "65","21"));
 
         // Adapter for DashBoard (Post) RecyclerView
         DashBoardAdapter dashBoardAdapter = new DashBoardAdapter(dashboardList,getContext());

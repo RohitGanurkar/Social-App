@@ -1,5 +1,6 @@
 package com.example.socialapp.Fragment;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.socialapp.Model.PostModel;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
 import com.example.socialapp.databinding.FragmentPostBinding;
@@ -33,11 +35,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 public class PostFragment extends Fragment {
+    ProgressDialog dialog;
     FragmentPostBinding binding;
     ActivityResultLauncher<String> changePostImage;
     Uri uri;
     FirebaseDatabase database;
+    FirebaseStorage storage;
     FirebaseAuth auth;
 
     public PostFragment() {
@@ -47,9 +53,12 @@ public class PostFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        dialog = new ProgressDialog(getContext());
+
         // Instance of Firebase
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
 
     }
 
@@ -58,6 +67,13 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPostBinding.inflate(inflater, container, false);
+
+        // Creating Loading DialogBox that is use { when post is uploading in database }
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("Post Uploading");
+        dialog.setMessage("Please wait..");
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         // getting UserInfo for setup User ProfileImage and Name in Post Frgament
         database.getReference().child("User").child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -129,6 +145,36 @@ public class PostFragment extends Fragment {
                 }
             }
         });
+
+        // Store PostRelatedData into the FirebaseDatabase
+        binding.postButton.setOnClickListener(v -> {
+            dialog.show();
+            // Store postImage into the FirebaseStorage
+            StorageReference reference = storage.getReference().child("posts")
+                    .child(auth.getUid())
+                    .child(new Date()+"");
+            reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+                reference.getDownloadUrl().addOnSuccessListener(uri -> {
+
+                    PostModel postModel = new PostModel();
+
+                    postModel.setPostImgUrl(uri.toString());
+                    postModel.setPostDescription(binding.postDescripyion.getText().toString());
+                    postModel.setPostedBy(auth.getUid());
+                    postModel.setPostedAt(new Date().getTime());
+
+                    // Store PostRelatedData into the FirebaseDatabase
+                    database.getReference().child("posts")
+                            .push()
+                            .setValue(postModel).addOnSuccessListener(unused -> {
+                                binding.postDescripyion.setText("");
+                                binding.postImagePost.setVisibility(View.GONE);
+                                dialog.dismiss();
+                            });
+                });
+            });
+        });
+
         return binding.getRoot();
     }
 }
