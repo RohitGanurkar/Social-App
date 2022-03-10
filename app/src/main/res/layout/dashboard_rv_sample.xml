@@ -66,14 +66,14 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_150mdp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_wall"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/postDescription"
         app:riv_border_color="#333333"
         app:riv_border_width="1dip"
         app:riv_corner_radius="10dip"
@@ -124,5 +124,21 @@
         android:text="Share"
         app:layout_constraintStart_toEndOf="@+id/comment"
         app:layout_constraintTop_toBottomOf="@+id/postImage" />
+
+    <TextView
+        android:id="@+id/postDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
