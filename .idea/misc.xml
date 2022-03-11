@@ -11,7 +11,9 @@
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_baseline_live_tv_24.xml" value="0.2526041666666667" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_checked.xml" value="0.2345" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_comment.xml" value="0.2526041666666667" />
+        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_heartlike.xml" value="0.1675" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_home.xml" value="0.13177083333333334" />
+        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_like.xml" value="0.1675" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_notifications.xml" value="0.13177083333333334" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_post.xml" value="0.13177083333333334" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/drawable/ic_profile.xml" value="0.13177083333333334" />
@@ -24,7 +26,7 @@
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/activity_main.xml" value="0.18333333333333332" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/activity_signup.xml" value="0.23645833333333333" />
-        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/dashboard_rv_sample.xml" value="0.2" />
+        <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/dashboard_rv_sample.xml" value="0.264" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/fragment_home.xml" value="0.18087649402390438" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/fragment_notification.xml" value="0.18333333333333332" />
         <entry key="..\:/Tutorial/SocialApp/app/src/main/res/layout/fragment_notification2.xml" value="0.23645833333333333" />

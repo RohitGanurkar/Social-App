@@ -88,11 +88,13 @@ public class HomeFragment extends Fragment {
         binding.dashboardRv.setAdapter(postsAdapter);
 
         // Getting All Posts from FirebaseDatabase for PostArrayList
-        database.getReference().child("posts").addValueEventListener(new ValueEventListener() {
+        database.getReference().child("Posts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     PostModel postModel = dataSnapshot.getValue(PostModel.class);
+                    postModel.setPostId(dataSnapshot.getKey());
                     postArrayList.add(postModel);
                 }
                 postsAdapter.notifyDataSetChanged();

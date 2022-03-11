@@ -150,7 +150,7 @@ public class PostFragment extends Fragment {
         binding.postButton.setOnClickListener(v -> {
             dialog.show();
             // Store postImage into the FirebaseStorage
-            StorageReference reference = storage.getReference().child("posts")
+            StorageReference reference = storage.getReference().child("Posts")
                     .child(auth.getUid())
                     .child(new Date()+"");
             reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
@@ -164,7 +164,7 @@ public class PostFragment extends Fragment {
                     postModel.setPostedAt(new Date().getTime());
 
                     // Store PostRelatedData into the FirebaseDatabase
-                    database.getReference().child("posts")
+                    database.getReference().child("Posts")
                             .push()
                             .setValue(postModel).addOnSuccessListener(unused -> {
                                 binding.postDescripyion.setText("");
