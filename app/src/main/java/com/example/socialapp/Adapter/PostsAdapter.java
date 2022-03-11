@@ -1,6 +1,7 @@
 package com.example.socialapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.socialapp.CommentActivity;
 import com.example.socialapp.Model.PostModel;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
@@ -114,6 +116,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+
+        // when Comment btn clicked CommentActivity opened
+        holder.binding.comment.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CommentActivity.class);
+            context.startActivity(intent);
         });
 
     }
