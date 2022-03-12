@@ -7,6 +7,7 @@ public class PostModel {
     String postImgUrl;
     long postedAt;
     int postLike ;
+    int commentCount;
 
     public PostModel() {
     }
@@ -17,6 +18,14 @@ public class PostModel {
         this.postDescription = postDescription;
         this.postImgUrl = postImgUrl;
         this.postedAt = postedAt;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     public int getPostLike() {

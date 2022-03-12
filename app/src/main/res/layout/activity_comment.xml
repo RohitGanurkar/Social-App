@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".CommentActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#FFFFFF" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/view10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarComment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,7 +36,7 @@
 
             <ImageView
                 android:id="@+id/postedPhoto"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +75,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -86,7 +98,7 @@
                 android:text="354"
                 app:drawableLeftCompat="@drawable/ic_like"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <TextView
                 android:id="@+id/comment"
@@ -98,7 +110,7 @@
                 android:text="25"
                 app:drawableLeftCompat="@drawable/ic_comment"
                 app:layout_constraintStart_toEndOf="@+id/like"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <TextView
                 android:id="@+id/share"
@@ -110,13 +122,15 @@
                 android:drawablePadding="10dp"
                 android:text="Share"
                 app:layout_constraintStart_toEndOf="@+id/comment"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comment_rv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +146,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp"
-        android:background="@drawable/follow_activebutton"
+        android:background="@drawable/comment_bg"
         app:layout_constraintBottom_toBottomOf="@+id/commentBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

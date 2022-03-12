@@ -61,6 +61,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
                 holder.binding.userName.setText(user.getName());
                 holder.binding.about.setText(user.getProfession());
                 holder.binding.like.setText(model.getPostLike()+"");
+                holder.binding.comment.setText(model.getCommentCount()+"");
 
                 if(model.getPostDescription().length() != 0){ // if postDescription here
                     holder.binding.postDescription.setVisibility(View.VISIBLE);
@@ -121,6 +122,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
         // when Comment btn clicked CommentActivity opened
         holder.binding.comment.setOnClickListener(v -> {
             Intent intent = new Intent(context, CommentActivity.class);
+            // Sending some Data to CommentActivity
+            intent.putExtra("postId", model.getPostId());
+            intent.putExtra("postBy", model.getPostedBy());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
 
