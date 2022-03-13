@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/postImage"
+        android:id="@+id/lastStory"
         android:layout_width="@dimen/_130mdp"
         android:layout_height="@dimen/_85mdp"
         android:layout_marginEnd="16dp"
@@ -17,8 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="10dip"
-        app:riv_mutate_background="true"
-        app:riv_tile_mode="repeat" />
+        app:riv_mutate_background="true"/>
 
     <ImageView
         android:id="@+id/storyType"
@@ -26,30 +25,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/postImage"
-        app:layout_constraintTop_toTopOf="@+id/postImage"
+        app:layout_constraintEnd_toEndOf="@+id/lastStory"
+        app:layout_constraintTop_toTopOf="@+id/lastStory"
         app:srcCompat="@drawable/ic_baseline_live_tv_24" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="@dimen/_30mdp"
-        android:layout_height="@dimen/_30mdp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:id="@+id/profile_photo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:padding="4dp"
         android:src="@drawable/image_face"
-        app:layout_constraintStart_toStartOf="@+id/postImage"
-        app:layout_constraintTop_toTopOf="@+id/postImage" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/circle"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
-        app:layout_constraintEnd_toEndOf="@+id/profile_image"
-        app:layout_constraintStart_toStartOf="@+id/profile_image"
-        app:layout_constraintTop_toTopOf="@+id/profile_image" />
+    <com.devlomi.circularstatusview.CircularStatusView
+        android:id="@+id/circular_status_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
+        app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+        app:layout_constraintStart_toStartOf="@+id/profile_photo"
+        app:layout_constraintTop_toTopOf="@+id/profile_photo"
+        app:portion_color="@color/orange"
+        app:portion_spacing="6dp"
+        app:portion_width="2dp"
+        app:portions_count="8" />
 
     <TextView
         android:id="@+id/username"
@@ -60,7 +64,7 @@
         android:text="username"
         android:textColor="#FFFCFC"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/postImage"
-        app:layout_constraintStart_toStartOf="@+id/postImage" />
+        app:layout_constraintBottom_toBottomOf="@+id/lastStory"
+        app:layout_constraintStart_toStartOf="@+id/lastStory" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

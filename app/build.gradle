@@ -62,9 +62,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:9.6.1'
     implementation 'com.google.firebase:firebase-storage'
 
+    // Picasso image Library
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // fot TimeAgo
     implementation 'com.github.marlonlom:timeago:4.0.3'
+
+    // status view divide
+    implementation 'com.github.3llomi:CircularStatusView:V1.0.2'
+
+    implementation 'com.github.OMARIHAMZA:StoryView:1.0.2-alpha'
+
 
 }
 apply plugin: 'com.google.gms.google-services'
