@@ -61,8 +61,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/color_text_bg"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="2dp"
         android:text="username"
-        android:textColor="#FFFCFC"
+        android:textColor="#99000000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/lastStory"
         app:layout_constraintStart_toStartOf="@+id/lastStory" />

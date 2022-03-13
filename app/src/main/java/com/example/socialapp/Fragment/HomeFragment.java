@@ -96,6 +96,7 @@ public class HomeFragment extends Fragment {
         binding.stroryRecycle.setLayoutManager(linearLayoutManager);
         binding.stroryRecycle.setNestedScrollingEnabled(false);
         binding.stroryRecycle.setAdapter(storyAdapter);
+        binding.stroryRecycle.showShimmerAdapter(); // shimmer layout
 
         //getting All Stories from Database
         database.getReference()
@@ -121,6 +122,7 @@ public class HomeFragment extends Fragment {
                                 // this Arraylist user for StoryAdapter
                                 storyList.add(story);
                             }
+                            binding.stroryRecycle.hideShimmerAdapter(); // shimmer layout
                             storyAdapter.notifyDataSetChanged();
                         }
                     }
@@ -139,6 +141,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
         binding.dashboardRv.setLayoutManager(linearLayoutManager2);
         binding.dashboardRv.setAdapter(postsAdapter);
+        binding.dashboardRv.showShimmerAdapter(); // shimmer layout
 
         // Getting All Posts from FirebaseDatabase for PostArrayList
         database.getReference().child("Posts").addValueEventListener(new ValueEventListener() {
@@ -150,6 +153,7 @@ public class HomeFragment extends Fragment {
                     postModel.setPostId(dataSnapshot.getKey());
                     postArrayList.add(postModel);
                 }
+                binding.dashboardRv.hideShimmerAdapter(); // shimmer layout
                 postsAdapter.notifyDataSetChanged();
             }
 

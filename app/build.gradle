@@ -73,6 +73,9 @@ dependencies {
 
     implementation 'com.github.OMARIHAMZA:StoryView:1.0.2-alpha'
 
+    // shimmer layout
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -64,8 +64,9 @@
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fillViewport="true"
                 android:scrollbars="none"
@@ -73,12 +74,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cslayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
@@ -86,7 +87,6 @@
                             android:id="@+id/postImage"
                             android:layout_width="@dimen/_130mdp"
                             android:layout_height="@dimen/_85mdp"
-                            android:layout_marginStart="16dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/image_wall"
                             app:layout_constraintStart_toStartOf="parent"
@@ -140,15 +140,17 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                         android:id="@+id/stroryRecycle"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        tools:listitem="@layout/story_rv_design"
-                        />
+                        android:layout_toEndOf="@id/cslayout"
+                        app:shimmer_demo_child_count="1"
+                        app:shimmer_demo_layout="@layout/layout_demo_post_2"
+                        tools:itemCount="6" />
 
-                </LinearLayout>
+                </RelativeLayout>
             </HorizontalScrollView>
 
             <View
@@ -162,11 +164,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                 android:id="@+id/dashboard_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
+                app:shimmer_demo_child_count="10"
+                app:shimmer_demo_layout="@layout/layout_demo_post"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3"
