@@ -1,6 +1,8 @@
 package com.example.socialapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.socialapp.CommentActivity;
 import com.example.socialapp.Model.Notification;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
@@ -51,6 +54,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
 
+                        // setup for NotificationViews
                         Picasso.get().load(user.getProfilePhoto()).placeholder(R.drawable.back_ground).into(holder.binding.profileImage);
                         holder.binding.timeNotify.setText(TimeAgo.using(notification.getNotificationAt()));
                         switch (notification.getType()){
@@ -71,6 +75,34 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                     }
                 });
+
+        if(!notification.getType().equals("follow")){
+            holder.binding.notification.setOnClickListener(v -> {
+
+                // false means notification is not Opened by user and true means Opened
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Notifications")
+                        .child(notification.getPostedBy())
+                        .child(notification.getNotificationId())
+                        .child("checkOpen")
+                        .setValue(true);
+
+                holder.binding.notification.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                // to open CommentActivity when that notification was clicked
+                Intent intent = new Intent(context, CommentActivity.class);
+                // Sending some Data to CommentActivity
+                intent.putExtra("postId", notification.getPostId());
+                intent.putExtra("postBy",notification.getPostedBy());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            });
+        }
+
+        // means Notification is Opened or notOpened
+        if(notification.isCheckOpen()){
+            holder.binding.notification.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }else{}
     }
 
     @Override

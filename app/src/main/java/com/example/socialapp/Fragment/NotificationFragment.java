@@ -2,23 +2,38 @@ package com.example.socialapp.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.socialapp.Adapter.ViewPagerAdapter;
-import com.example.socialapp.R;
+import com.example.socialapp.Adapter.NotificationAdapter;
+import com.example.socialapp.Model.Notification;
 import com.example.socialapp.databinding.FragmentNotificationBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class NotificationFragment extends Fragment {
     FragmentNotificationBinding binding;
+    ArrayList<Notification> notificationList;
+    FirebaseDatabase database;
+    FirebaseAuth auth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -27,11 +42,37 @@ public class NotificationFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentNotificationBinding.inflate(inflater, container, false);
 
-        // 1. firstly setting ViewpagerAdapter to viewPager
-        binding.viewPager.setAdapter(new ViewPagerAdapter(getFragmentManager()));
+        //Arraylist for Notification Adapter
+        notificationList = new ArrayList<>();
 
-        // 2. then setting ViewPager to the Tab
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
+        // setting Adapter to the Notification Recycler view
+        NotificationAdapter adapter = new NotificationAdapter(notificationList,getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        binding.notifiyRv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        binding.notifiyRv.setLayoutManager(linearLayoutManager);
+        binding.notifiyRv.setAdapter(adapter);
+
+        //getting Notifications for current user
+        database.getReference()
+                .child("Notifications")
+                .child(auth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        notificationList.clear();
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            Notification notification = dataSnapshot.getValue(Notification.class);
+                            notification.setNotificationId(dataSnapshot.getKey());
+                            notificationList.add(notification);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         return binding.getRoot();
     }
