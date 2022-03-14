@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.socialapp.Fragment.Notification2Fragment;
+import com.example.socialapp.Fragment.NotificationMainFragment;
 import com.example.socialapp.Fragment.RequestFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -20,11 +20,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         // here we are checking (which tab is now there)
         switch (position){
             case 0 :
-                return new Notification2Fragment();
+                return new NotificationMainFragment();
             case 1 :
                 return new RequestFragment();
             default:
-                return new Notification2Fragment();
+                return new NotificationMainFragment();
         }
     }
 

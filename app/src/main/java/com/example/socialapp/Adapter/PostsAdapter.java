@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialapp.CommentActivity;
+import com.example.socialapp.Model.Notification;
 import com.example.socialapp.Model.PostModel;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
@@ -107,6 +109,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
                                     .addOnSuccessListener(unused1 -> {
                                         // normal heart change into RedHeart
                                         holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heartlike,0,0,0);
+
+                                        Notification notification = new Notification();
+                                        notification.setNotificationBy(FirebaseAuth.getInstance().getUid());
+                                        notification.setNotificationAt(new Date().getTime());
+                                        notification.setPostId(model.getPostId());
+                                        notification.setPostedBy(model.getPostedBy());
+                                        notification.setType("like");
+
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("Notifications")
+                                                .child(model.getPostedBy())
+                                                .push()
+                                                .setValue(notification);
                                     });
                         });
                     });

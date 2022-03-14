@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.socialapp.Adapter.CommentAdapter;
 import com.example.socialapp.Model.CommentModel;
+import com.example.socialapp.Model.Notification;
 import com.example.socialapp.Model.PostModel;
 import com.example.socialapp.databinding.ActivityCommentBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -130,6 +131,19 @@ public class CommentActivity extends AppCompatActivity {
                                                 .addOnSuccessListener(unused1 -> {
                                                     binding.commentBox.setText("");
                                                     Toast.makeText(CommentActivity.this, "Commented Successfully", Toast.LENGTH_SHORT).show();
+
+                                                    Notification notification = new Notification();
+                                                    notification.setNotificationBy(FirebaseAuth.getInstance().getUid());
+                                                    notification.setNotificationAt(new Date().getTime());
+                                                    notification.setPostId(postId);
+                                                    notification.setPostedBy(postBy);
+                                                    notification.setType("comment");
+
+                                                    FirebaseDatabase.getInstance().getReference()
+                                                            .child("Notifications")
+                                                            .child(postBy)
+                                                            .push()
+                                                            .setValue(notification);
                                                 });
                                     }
 

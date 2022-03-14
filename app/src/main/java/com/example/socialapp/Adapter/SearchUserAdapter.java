@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialapp.Model.FollowModel;
+import com.example.socialapp.Model.Notification;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
 import com.example.socialapp.databinding.UserSampleBinding;
@@ -75,13 +76,25 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserAdapter.vi
                                     .setValue(followModel).addOnSuccessListener(unused -> {
                                 FirebaseDatabase.getInstance().getReference().child("User")  // Set FollowerCount into the userInfo in DATABASE
                                         .child(user.getUserId()).child("followerCount")
-                                        .setValue(user.getFollowerCount()+1).addOnSuccessListener(unused1 -> {
-                                     // for modify Button If allReady followed
-                                    holder.binding.followButton.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.follow_activebutton));
-                                    holder.binding.followButton.setText("Following");
-                                    holder.binding.followButton.setTextColor(context.getResources().getColor(R.color.green));
-                                    holder.binding.followButton.setEnabled(false);
-                                    Toast.makeText(context, "You Followed "+ user.getName(), Toast.LENGTH_SHORT).show();
+                                        .setValue(user.getFollowerCount()+1)
+                                        .addOnSuccessListener(unused1 -> {
+                                            // for modify Button If allReady followed
+                                            holder.binding.followButton.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.follow_activebutton));
+                                            holder.binding.followButton.setText("Following");
+                                            holder.binding.followButton.setTextColor(context.getResources().getColor(R.color.green));
+                                            holder.binding.followButton.setEnabled(false);
+                                            Toast.makeText(context, "You Followed "+ user.getName(), Toast.LENGTH_SHORT).show();
+
+                                            Notification notification = new Notification();
+                                            notification.setNotificationBy(FirebaseAuth.getInstance().getUid());
+                                            notification.setNotificationAt(new Date().getTime());
+                                            notification.setType("follow");
+
+                                            FirebaseDatabase.getInstance().getReference()
+                                                    .child("Notifications")
+                                                    .child(user.getUserId())
+                                                    .push()
+                                                    .setValue(notification);
                                 });
                             });
                         }
