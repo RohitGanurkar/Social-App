@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.socialapp.CommentActivity;
 import com.example.socialapp.Model.Notification;
 import com.example.socialapp.Model.PostModel;
+import com.example.socialapp.NotificationFCM;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
 import com.example.socialapp.databinding.DashboardRvSampleBinding;
+import com.github.marlonlom.utilities.timeago.TimeAgo;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +55,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
 
         // Setting values in ImageBox/TextBox
         Picasso.get().load(model.getPostImgUrl()).placeholder(R.drawable.back_ground).into(holder.binding.postImage);
+        holder.binding.about.setText(TimeAgo.using(model.getPostedAt()));
         FirebaseDatabase.getInstance().getReference().child("User").child(model.getPostedBy()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,7 +64,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
                 // setting name and profession and other things
                 Picasso.get().load(user.getProfilePhoto()).placeholder(R.drawable.back_ground).into(holder.binding.profileImage);
                 holder.binding.userName.setText(user.getName());
-                holder.binding.about.setText(user.getProfession());
+//                holder.binding.about.setText(user.getProfession());
                 holder.binding.like.setText(model.getPostLike()+"");
                 holder.binding.comment.setText(model.getCommentCount()+"");
 
@@ -122,6 +125,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
                                                 .child(model.getPostedBy())
                                                 .push()
                                                 .setValue(notification);
+
+                                        // Sending Notification to That User
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("User")
+                                                .child(model.getPostedBy())
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        User user = snapshot.getValue(User.class);
+                                                        NotificationFCM notificationFCM = new NotificationFCM();
+                                                        notificationFCM.sendNotify(context, user.getName(), "liked your post", user.getToken());
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
                                     });
                         });
                     });
@@ -143,6 +164,44 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder>{
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
+
+
+        // showing Only Our & following Post
+        FirebaseDatabase.getInstance().getReference()
+                .child("User")
+                .child(FirebaseAuth.getInstance().getUid())
+                .child("following")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(model.getPostedBy().equals(FirebaseAuth.getInstance().getUid())){
+                            holder.itemView.setVisibility(View.VISIBLE);
+                            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+                            params.height=ViewGroup.LayoutParams.WRAP_CONTENT;
+                            params.width= ViewGroup.LayoutParams.MATCH_PARENT;
+                            holder.itemView.setLayoutParams(params);
+                        }
+                        else if(!snapshot.hasChild(model.getPostedBy())){
+                            holder.itemView.setVisibility(View.GONE);
+                            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+                            params.height= 0;
+                            params.width= 0;
+                            holder.itemView.setLayoutParams(params);
+                        }
+                        else{
+                            holder.itemView.setVisibility(View.VISIBLE);
+                            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+                            params.height=ViewGroup.LayoutParams.WRAP_CONTENT;
+                            params.width= ViewGroup.LayoutParams.MATCH_PARENT;
+                            holder.itemView.setLayoutParams(params);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
     }
 

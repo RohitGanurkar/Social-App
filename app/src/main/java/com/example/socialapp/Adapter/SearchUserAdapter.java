@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialapp.Model.FollowModel;
 import com.example.socialapp.Model.Notification;
+import com.example.socialapp.NotificationFCM;
 import com.example.socialapp.R;
 import com.example.socialapp.User;
 import com.example.socialapp.databinding.UserSampleBinding;
@@ -95,6 +96,17 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserAdapter.vi
                                                     .child(user.getUserId())
                                                     .push()
                                                     .setValue(notification);
+
+                                            // save following in Database
+                                            FirebaseDatabase.getInstance().getReference()
+                                                    .child("User")
+                                                    .child(FirebaseAuth.getInstance().getUid())
+                                                    .child("following")
+                                                    .child(user.getUserId())
+                                                    .setValue(1);
+
+                                            NotificationFCM notificationFCM = new NotificationFCM();
+                                            notificationFCM.sendNotify(context, user.getName(), " starts following you", user.getToken());
                                 });
                             });
                         }

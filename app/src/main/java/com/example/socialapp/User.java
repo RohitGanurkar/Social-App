@@ -1,7 +1,16 @@
 package com.example.socialapp;
 
 public class User {
-    private String name, profession, email, password, userId;
+    private String name, profession, email, password, userId, token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     private String coverPhoto, profilePhoto;
     private int followerCount;
 

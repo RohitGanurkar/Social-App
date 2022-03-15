@@ -144,6 +144,24 @@ public class CommentActivity extends AppCompatActivity {
                                                             .child(postBy)
                                                             .push()
                                                             .setValue(notification);
+
+                                                    // Sending Notification to That User
+                                                    FirebaseDatabase.getInstance().getReference()
+                                                            .child("User")
+                                                            .child(postBy)
+                                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                    User user = snapshot.getValue(User.class);
+                                                                    NotificationFCM notificationFCM = new NotificationFCM();
+                                                                    notificationFCM.sendNotify(CommentActivity.this, user.getName(), "commented on your post", user.getToken());
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                }
+                                                            });
                                                 });
                                     }
 

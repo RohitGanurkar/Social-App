@@ -82,7 +82,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 // false means notification is not Opened by user and true means Opened
                 FirebaseDatabase.getInstance().getReference()
                         .child("Notifications")
-                        .child(notification.getPostedBy())
+                        .child(notification.getPostedBy()) // we can use current user id
                         .child(notification.getNotificationId())
                         .child("checkOpen")
                         .setValue(true);

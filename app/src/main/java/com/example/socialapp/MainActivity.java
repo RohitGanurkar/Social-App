@@ -19,8 +19,13 @@ import com.example.socialapp.Fragment.PostFragment;
 import com.example.socialapp.Fragment.ProfileFragment;
 import com.example.socialapp.Fragment.SearchFragment;
 import com.example.socialapp.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.iammert.library.readablebottombar.ReadableBottomBar;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -33,6 +38,16 @@ public class MainActivity extends AppCompatActivity {
         // using Custom Toolbar
         setSupportActionBar(binding.toolbar);
         MainActivity.this.setTitle("My Profile");
+
+        // Store Token Into the Database for sending Notification to Specific User
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("token", token);
+            FirebaseDatabase.getInstance().getReference()
+                    .child("User")
+                    .child(FirebaseAuth.getInstance().getUid())
+                    .updateChildren(map);
+        });
 
         // Showing Home Fragment when App in Opening
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
